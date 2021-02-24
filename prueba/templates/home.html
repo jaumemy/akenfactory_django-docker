@@ -20,11 +20,111 @@
 
     <input type="text" name="date" value="{{date}}" readonly>
 
+    <h3>Punto 2</h3>
+
+    <a href="https://colab.research.google.com/drive/1vRF6Kd0UpOCOIIFmumwQkGfL3lHNkkI6?usp=sharing" target="_blank" rel="noopener noreferrer">Solución en cuaderno de Google Colaboratory</a>
+
+
+     <textarea name="name" rows="50" cols="150" readonly>
+       ## Inicialmente propongo como solución almacenar la imagen o matriz como lista de listas
+
+imagen_1 = [[0, 0, 1, 0, 0],
+            [1, 1, 1, 1, 1],
+            [0, 1, 1, 1, 0],
+            [1, 1, 0, 1, 1],
+            [1, 0, 0, 0, 1]]
+
+## Función que itera por cada fila y cada elemento de esa fila para contar cuántas veces el valor es 1 o 0.
+## Finalmente retorna un string para ajustarse al enunciado donde hay una '/' en la proporción
+
+
+def razon_blanconegro(imagen):
+
+    num_total = len(imagen)*len(imagen[0])
+    num_blanco = 0
+    num_negro = 0
+
+    for linea in imagen:
+        for columna in linea:
+            if columna == 1:
+                num_blanco += 1
+            elif columna == 0:
+                num_negro += 1
+    return str(int(((num_blanco/num_total)*100)))+'/'+str(int(((num_negro/num_total)*100)))
+
+
+razon_blanconegro(imagen_1)
+"""'60/40'"""
+
+
+# De cara a resolver el último apartado,decido que es mejor usar arrays de numpy, tras haber descartado la estructura anterior.
+
+
+import numpy as np
+
+original = np.array([[0, 0, 1, 0, 0],
+                    [1, 1, 1, 1, 1],
+                    [0, 1, 1, 1, 0],
+                    [1, 1, 0, 1, 1],
+                    [1, 0, 0, 0, 1]])
+
+patron1 = np.array([[1, 1],
+                  [0, 1]])
+
+patron2 = np.array([[1, 1],
+                  [1, 1]])
+
+patron3 = np.array([[0, 0],
+                  [0, 0]])
+
+patron4 = np.array([[0, 0, 1, 0, 0],
+                    [1, 1, 1, 1, 1],
+                    [0, 1, 1, 1, 0],
+                    [1, 1, 0, 1, 1],
+                    [1, 0, 0, 0, 1],
+                    [1, 1, 1, 1, 1]])
+
+## Primeramente confirmamos que la imagen patrón sea más pequeña que la imagen original con el atributo shape de los arrays de numpy.
+## En caso contrario realizamos una comparación de submatrices iterando en el rango proporcionado por el método shape.
+## SE retorna un string donde se inserta n, el número de repeticiones
+
+
+def repeticiones_patron(A, P):
+
+    if P.shape[0] > A.shape[0] or P.shape[1] > A.shape[1]:
+        raise ValueError(f"La imagen patrón es más grande que la original. Por favor, proporcione una imagen patrón más pequeña a {A.shape[0]} * {A.shape[1]}")
+
+    n = 0
+    for i in range(A.shape[0] - P.shape[0]):
+        for j in range(A.shape[1] - P.shape[1]):
+            n += np.all(A[i:(i+P.shape[0]), j:(j+P.shape[1])] == P)
+
+    return f"El patrón se encuentra {n} veces en la imagen original."
+
+
+
+repeticiones_patron(original, patron1)
+"""'El patrón se encuentra 2 veces en la imagen original.'"""
+repeticiones_patron(original, patron2)
+"""'El patrón se encuentra 2 veces en la imagen original.'"""
+repeticiones_patron(original, patron3)
+"""'El patrón se encuentra 0 veces en la imagen original.'"""
+repeticiones_patron(original, patron4)
+"""..."""
+"""ValueError: La imagen patrón es más grande que la original. Por favor, proporcione una imagen patrón más pequeña a 5 * 5"""
+
+
+## En todos los casos resulta la respuesta correcta excepto en el primero, donde en vez de 3, nos da 2.
+## Soy consciente de este error pero no he dado con la solución
+     </textarea>
+
 
     <h3>Punto 3</h3>
 
+    <a href="https://colab.research.google.com/drive/1BXFwEUU2PsntZ4_bI1hcwFcVSmIHyd_2?usp=sharing" target="_blank" rel="noopener noreferrer">Solución en cuaderno de Google Colaboratory</a>
 
-    <textarea name="name" rows="60" cols="150" value="" readonly>
+
+    <textarea name="name" rows="50" cols="150" value="" readonly>
 
 ## Resolución del problema basado en OOP
 
@@ -89,7 +189,10 @@ cantidad_color('Rojo cereza')
 
     <h3>Punto 4</h3>
 
-    <textarea name="name" rows="60" cols="150" readonly>
+    <a href="https://colab.research.google.com/drive/1X9pGy_0bl_k5-AAnJfRV7_XPK1EzAh1E?usp=sharing" target="_blank" rel="noopener noreferrer">Solución en cuaderno de Google Colaboratory</a>
+
+
+    <textarea name="name" rows="50" cols="150" readonly>
       ## Definimos a cada usuario o tuitero como un diccionario donde las keys son los otros usuarios y los values 0 o 1 para saber si lo sigue o no. Finalmente juntamos todos estos tuiteros en una lista, que es la red social en sí.
 ## Se que no es el método más eficiente ya que implica iterar por todo constantemente pero fue con la opción que me sentía más seguro de resolverlo a día de hoy.
 
@@ -185,6 +288,9 @@ trio_seguimiento(lista_tuiteros, Ana, Beto, Felipe)
 
     <h3>Punto 5</h3>
 
+    <a href="https://colab.research.google.com/drive/1vrusRnFFtQNNsFsC82buq1YAL-QwBg2M?usp=sharing" target="_blank" rel="noopener noreferrer">Solución en cuaderno de Google Colaboratory</a>
+
+
     <textarea name="name" rows="50" cols="150" readonly>
       ## Problema resuelta con OOP
 
@@ -254,6 +360,10 @@ inter_igual(c1, c2)
     <h3>Punto 7</h3>
 
     <a href="https://colab.research.google.com/drive/1uumtVFUu2eIdx0leze6b6iLX84t3BV4Q?usp=sharing" target="_blank" rel="noopener noreferrer">Solución en cuaderno de Google Colaboratory</a>
+
+    <h3>Punto 8(Opcional)</h3>
+
+    <p>Hecho</p>
 
   </body>
 </html>
